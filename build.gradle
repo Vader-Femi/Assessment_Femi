@@ -6,10 +6,10 @@ plugins {
     id 'com.google.dagger.hilt.android' version '2.44' apply false
 }
 
-//allprojects {
-//    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-//        kotlinOptions {
-//            jvmTarget = "1.8"
-//        }
-//    }
-//}
+allprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+}
