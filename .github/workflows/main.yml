@@ -12,14 +12,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3.5.2
+        
       - name: Setup Java JDK
         uses: actions/setup-java@v1.4.4
         with: 
           java-version: 17
+          distribution: temurin
+          cache: gradle
+        
       - name: Make gradlew executable
-        run: chmod +x ./gradlew
+        run: chmod +x gradlew
+        
       - name: Build with Gradle
         run: ./gradlew build
+        
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.2
         with: 
