@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Assessment_Femi</string>
+    <string name="retry">Retry</string>
+    <string name="check_your_internet">Please check your internet connection</string>
+    <string name="api_error">Api Error</string>
+    <string name="error">Error</string>
+    <string name="okay">Okay</string>
+    <string name="first_fragment_label">Brands</string>
+    <string name="second_fragment_label">Products</string>
+    <string name="third_fragment_label">Details</string>
+    <string name="description_placeholder">Description Placeholder</string>
+    <string name="product_image">Product Image</string>
+    <string name="name">Name</string>
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="price_placeholder">Price placeholder</string>
+    <string name="name_placeholder">Name placeholder</string>
+
+
+</resources>
