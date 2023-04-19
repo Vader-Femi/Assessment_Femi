@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.femi.assessment_femi.data.adapters.ProductsAdapter
 import com.femi.assessment_femi.databinding.FragmentSecondBinding
 import com.femi.assessment_femi.viewmodels.ProductsViewModel
+import timber.log.Timber
 
 class SecondFragment : Fragment() {
 
@@ -39,6 +40,7 @@ class SecondFragment : Fragment() {
         val productsAdapter = ProductsAdapter{ productName ->
             val bundle = Bundle()
             bundle.putString("KEY_PRODUCT_NAME", productName)
+            Timber.i("Loading $productName")
             findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment, bundle)
         }
         adapter = productsAdapter

@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 
 class ProductsRepository @Inject constructor(
@@ -18,6 +19,7 @@ class ProductsRepository @Inject constructor(
         apiCall: suspend () -> T,
     ): Resource<T> {
         return withContext(Dispatchers.IO) {
+            //Already being logged in the "handleApiError" function in Utills
             try {
                 Resource.Success(apiCall.invoke())
             } catch (throwable: Throwable) {
@@ -25,7 +27,6 @@ class ProductsRepository @Inject constructor(
                     is HttpException -> {
                         Resource.Failure(false, throwable.code(), throwable.response()?.errorBody())
                     }
-
                     else -> {
                         Resource.Failure(true, null, null)
                     }

@@ -1,7 +1,6 @@
 package com.femi.assessment_femi
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.femi.assessment_femi.databinding.FragmentThirdBinding
 import com.femi.assessment_femi.viewmodels.ProductsViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
 
 class ThirdFragment : Fragment() {
     private var _binding: FragmentThirdBinding? = null
@@ -38,7 +38,8 @@ class ThirdFragment : Fragment() {
 
         val productName = arguments?.getString("KEY_PRODUCT_NAME")
         if (productName == null) {
-            Toast.makeText(context, "Null", Toast.LENGTH_LONG).show()
+            Timber.i("Cannot find product")
+            Toast.makeText(context, "Cannot find product", Toast.LENGTH_LONG).show()
             findNavController().popBackStack()
         }
         val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(true).build()

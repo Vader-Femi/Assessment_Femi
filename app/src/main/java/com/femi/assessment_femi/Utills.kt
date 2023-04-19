@@ -1,20 +1,12 @@
-package com.femi.assessment_femi.data
+package com.femi.assessment_femi
 
 import android.content.Context
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
-import com.femi.assessment_femi.R
 import com.femi.assessment_femi.data.remote.Resource
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
-
-fun View?.hideKeyboard() {
-    this?.let {
-        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(windowToken, 0)
-    }
-}
+import timber.log.Timber
 
 fun View.snackbar(message: String, action: (() -> Unit)? = null) {
     val snackbar = Snackbar.make(this, message, Snackbar.LENGTH_LONG)
@@ -62,16 +54,17 @@ fun Fragment.handleApiError(
     failure: Resource.Failure,
     retry: (() -> Unit)? = null,
 ) {
-    val error = failure.errorBody?.string().toString()
+    var error = failure.errorBody?.string().toString()
 
-    view.hideKeyboard()
     when {
         failure.isNetworkError == true -> {
-            view?.snackbar(getString(R.string.check_your_internet), retry)
+            error = getString(R.string.check_your_internet)
+            view?.snackbar(error, retry)
         }
 
         failure.errorCode == 500 -> {
-            view?.snackbar(getString(R.string.api_error))
+            error = getString(R.string.api_error)
+            view?.snackbar(error)
         }
 
         else -> {
@@ -82,4 +75,6 @@ fun Fragment.handleApiError(
             )
         }
     }
+
+    Timber.e("$this - $error")
 }

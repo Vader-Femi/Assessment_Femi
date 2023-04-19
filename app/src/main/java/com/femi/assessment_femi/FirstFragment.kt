@@ -11,10 +11,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.femi.assessment_femi.data.adapters.BrandsAdapter
-import com.femi.assessment_femi.data.handleApiError
 import com.femi.assessment_femi.data.remote.Resource
 import com.femi.assessment_femi.databinding.FragmentFirstBinding
 import com.femi.assessment_femi.viewmodels.ProductsViewModel
+import timber.log.Timber
 
 class FirstFragment : Fragment() {
 
@@ -70,6 +70,7 @@ class FirstFragment : Fragment() {
 
     private fun setupRecyclerView() = binding.rvBrands.apply {
         val brandsAdapter = BrandsAdapter { brand ->
+            Timber.i("Showing brand - $brand")
             viewModel.selectedBrand(brand)
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }

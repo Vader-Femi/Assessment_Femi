@@ -10,6 +10,7 @@ import com.femi.assessment_femi.data.repository.ProductsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,11 +37,14 @@ class ProductsViewModel @Inject constructor(
         private set
 
     fun saveProductsAndBrand(value: List<ProductItem>) = viewModelScope.launch {
+        //Would have rather save the whole ProductItem file and not just brand name. But for now
         allMakeupProducts.value = value
 
         val allBrands = arrayListOf<String>()
         value.forEach {
-            if (!it.brand.isNullOrEmpty()) // Ignore the suggestion, there is actually one null brand
+            if (it.brand.isNullOrEmpty()) // Ignore the suggestion, there are actually null brands
+                Timber.wtf("There a null product at with id ${it.id}")
+            else
                 allBrands.add(it.brand)
         }
         brands.value = allBrands.distinct()
@@ -64,14 +68,17 @@ class ProductsViewModel @Inject constructor(
     private suspend fun selectedBrand() = repository.selectedBrand()
 
     private fun saveSelectedBrandProducts(brand: String) = viewModelScope.launch {
+        //Not ideal. Would have rather saved the whole ProductItem file so no need to search. But for now
         val brandProducts = arrayListOf<String>()
         allMakeupProducts.value?.forEach { productItem ->
             if (productItem.brand == brand) {
                 brandProducts.add(productItem.name)
+                Timber.i("$brand found")
                 return@forEach
             }
         }
         selectedBrandProducts.value = brandProducts
+        Timber.i("$brand saved")
     }
 
     var selectedProductItem: MutableLiveData<ProductItem> =
@@ -79,9 +86,11 @@ class ProductsViewModel @Inject constructor(
         private set
 
     fun getSelectedProductItem(productName: String) = viewModelScope.launch {
+        //Also not ideal
         allMakeupProducts.value?.forEach { productItem ->
             if (productItem.name == productName) {
                 selectedProductItem.value = productItem
+                Timber.i("$productName found and saved")
                 return@forEach
             }
         }
