@@ -6,6 +6,10 @@ plugins {
     id 'com.google.dagger.hilt.android' version '2.44' apply false
 }
 
+tasks.register('clean') {
+    delete rootProject.buildDir
+}
+
 allprojects {
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         kotlinOptions {
