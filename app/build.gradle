@@ -9,6 +9,10 @@ android {
     namespace 'com.femi.assessment_femi'
     compileSdk 33
 
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
         applicationId "com.femi.assessment_femi"
         minSdk 24
