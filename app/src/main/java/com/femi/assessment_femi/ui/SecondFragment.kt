@@ -40,7 +40,7 @@ class SecondFragment : Fragment() {
     private fun setupRecyclerView() = binding.rvBrandProductType.apply {
         val productsAdapter = ProductsAdapter{ productName ->
             val bundle = Bundle()
-            bundle.putString("KEY_PRODUCT_NAME", productName)
+            bundle.putSerializable("KEY_PRODUCT_NAME", productName)
             Timber.i("Loading $productName")
             findNavController().navigate(R.id.action_SecondFragment_to_ThirdFragment, bundle)
         }

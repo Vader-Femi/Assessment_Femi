@@ -24,6 +24,11 @@ class FirstFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<ProductsViewModel>()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.getProducts()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -42,7 +47,16 @@ class FirstFragment : Fragment() {
             binding.swipeRefreshLayout.isRefreshing = false
         }
 
-        viewModel.getProducts()
+//        if (
+//            viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.CREATED
+//            ||
+//            viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.STARTED
+//            ||
+//            viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED
+//        ) {
+//            viewModel.getProducts()
+//        }
+
         setupObserver()
         setupRecyclerView()
 

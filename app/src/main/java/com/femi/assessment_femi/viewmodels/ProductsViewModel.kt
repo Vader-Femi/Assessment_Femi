@@ -37,7 +37,6 @@ class ProductsViewModel @Inject constructor(
         private set
 
     fun saveProductsAndBrand(value: List<ProductItem>) = viewModelScope.launch {
-        //Would have rather save the whole ProductItem file and not just brand name. But for now
         allMakeupProducts.value = value
 
         val allBrands = arrayListOf<String>()
@@ -51,11 +50,11 @@ class ProductsViewModel @Inject constructor(
     }
 
     // Products of a brand
-    var selectedBrandProducts: MutableLiveData<List<String>> =
-        MutableLiveData<List<String>>()
+    var selectedBrandProducts: MutableLiveData<List<ProductItem>> =
+        MutableLiveData<List<ProductItem>>()
         private set
 
-    fun selectedBrand(brand: String) {
+    fun selectedBrand(brand: String) { // The setter function
         viewModelScope.launch(Dispatchers.Main) {
             saveSelectedBrandProducts(brand)
         }
@@ -65,34 +64,18 @@ class ProductsViewModel @Inject constructor(
 
     }
 
-    private suspend fun selectedBrand() = repository.selectedBrand()
+    private suspend fun selectedBrand() = repository.selectedBrand() // The getter function
 
     private fun saveSelectedBrandProducts(brand: String) = viewModelScope.launch {
-        //Not ideal. Would have rather saved the whole ProductItem file so no need to search. But for now
-        val brandProducts = arrayListOf<String>()
+        val brandProducts = arrayListOf<ProductItem>()
         allMakeupProducts.value?.forEach { productItem ->
             if (productItem.brand == brand) {
-                brandProducts.add(productItem.name)
+                brandProducts.add(productItem)
                 Timber.i("$brand found")
                 return@forEach
             }
         }
         selectedBrandProducts.value = brandProducts
         Timber.i("$brand saved")
-    }
-
-    var selectedProductItem: MutableLiveData<ProductItem> =
-        MutableLiveData<ProductItem>()
-        private set
-
-    fun getSelectedProductItem(productName: String) = viewModelScope.launch {
-        //Also not ideal
-        allMakeupProducts.value?.forEach { productItem ->
-            if (productItem.name == productName) {
-                selectedProductItem.value = productItem
-                Timber.i("$productName found and saved")
-                return@forEach
-            }
-        }
     }
 }

@@ -1,5 +1,7 @@
 package com.femi.assessment_femi.data.product
 
+import java.io.Serializable
+
 data class ProductItem(
     val api_featured_image: String,
     val brand: String,
@@ -20,4 +22,4 @@ data class ProductItem(
     val tag_list: List<String>,
     val updated_at: String,
     val website_link: String
-)
+): Serializable

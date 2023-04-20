@@ -5,29 +5,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.femi.assessment_femi.data.product.ProductItem
 import com.femi.assessment_femi.databinding.ItemBrandProductTypeBinding
 
 
 class ProductsAdapter(
-    private val clickProduct: (product: String) -> Unit,
+    private val clickProduct: (product: ProductItem) -> Unit,
 ) : RecyclerView.Adapter<ProductsAdapter.BrandViewHolder>() {
 
     inner class BrandViewHolder(val binding: ItemBrandProductTypeBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    private val diffCallback = object : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+    private val diffCallback = object : DiffUtil.ItemCallback<ProductItem>() {
+        override fun areItemsTheSame(oldItem: ProductItem, newItem: ProductItem): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: ProductItem, newItem: ProductItem): Boolean {
+            return oldItem.id == newItem.id
         }
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    var products: List<String>
+    var products: List<ProductItem>
         get() = differ.currentList
         set(value) {
             differ.submitList(value)
@@ -47,7 +48,7 @@ class ProductsAdapter(
     override fun onBindViewHolder(holder: BrandViewHolder, position: Int) {
         holder.binding.apply {
             val product = products[position]
-            tvProduct.text = product
+            tvProduct.text = product.name
             cvProduct.setOnClickListener {
                 clickProduct(product)
             }
