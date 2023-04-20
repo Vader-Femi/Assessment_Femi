@@ -1,4 +1,4 @@
-package com.femi.assessment_femi
+package com.femi.assessment_femi.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.femi.assessment_femi.R
 import com.femi.assessment_femi.data.adapters.ProductsAdapter
 import com.femi.assessment_femi.databinding.FragmentSecondBinding
 import com.femi.assessment_femi.viewmodels.ProductsViewModel

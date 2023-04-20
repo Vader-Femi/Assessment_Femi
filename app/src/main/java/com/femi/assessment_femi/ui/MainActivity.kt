@@ -1,4 +1,4 @@
-package com.femi.assessment_femi
+package com.femi.assessment_femi.ui
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.femi.assessment_femi.R
 import com.femi.assessment_femi.databinding.ActivityMainBinding
 import com.femi.assessment_femi.viewmodels.ProductsViewModel
 import dagger.hilt.android.AndroidEntryPoint

@@ -14,10 +14,11 @@ object RetrofitInstance {
                 .addInterceptor { chain ->
                     chain.proceed(chain.request().newBuilder().also {}.build())
                 }.also { client ->
-                    val logging = HttpLoggingInterceptor()
-                    logging.setLevel(HttpLoggingInterceptor.Level.BODY)
-                    client.addInterceptor(logging)
-                }.build()
+                    //This should not slip into Release sha
+                        val logging = HttpLoggingInterceptor()
+                        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+                        client.addInterceptor(logging)
+                    }.build()
             )
             .addConverterFactory(GsonConverterFactory.create())
             .build()

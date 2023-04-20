@@ -1,4 +1,4 @@
-package com.femi.assessment_femi
+package com.femi.assessment_femi.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
+import com.femi.assessment_femi.R
 import com.femi.assessment_femi.databinding.FragmentThirdBinding
 import com.femi.assessment_femi.viewmodels.ProductsViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
